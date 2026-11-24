@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Form Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 { margin-top: 0; color: #009688; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #009688;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #00796b; }
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e0f2f1;
+            border-left: 4px solid #009688;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Registration</h2>
+
+    <!-- The action points to the POST route in FastAPI -->
+    <form action="/submit" method="post">
+        <div class="form-group">
+            <label for="username">Username *</label>
+            <input type="text" id="username" name="username" required placeholder="jdoe">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="jdoe@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="role">Role *</label>
+            <select id="role" name="role">
+                <option value="Developer">Developer</option>
+                <option value="Designer">Designer</option>
+                <option value="Manager">Manager</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Bio / Notes</label>
+            <textarea id="message" name="message" rows="3" placeholder="Optional notes..."></textarea>
+        </div>
+
+        <button type="submit">Submit Form</button>
+    </form>
+
+    <!-- Display submitted data if returned by FastAPI -->
+    {% if submitted_data %}
+    <div class="result">
+        <strong>Form Submitted Successfully!</strong>
+        <ul>
+            <li><b>Username:</b> {{ submitted_data.username }}</li>
+            <li><b>Email:</b> {{ submitted_data.email }}</li>
+            <li><b>Role:</b> {{ submitted_data.role }}</li>
+            <li><b>Notes:</b> {{ submitted_data.message or "None" }}</li>
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
